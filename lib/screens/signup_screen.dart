@@ -24,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final phoneMak = MaskTextInputFormatter(
+    final phoneMask = MaskTextInputFormatter(
         mask: '(##) 9#### - ####', filter: {"#": RegExp(r"[0-9]")});
 
     return Scaffold(
@@ -89,7 +89,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   TextFormField(
                     controller: phoneController,
-                    inputFormatters: [phoneMak],
+                    inputFormatters: [phoneMask],
                     validator: (text) {
                       if (text!.isEmpty) {
                         return "Telefone vazio";

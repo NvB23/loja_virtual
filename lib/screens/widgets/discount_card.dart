@@ -9,8 +9,6 @@ class DiscountCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TextEditingController couponController = TextEditingController();
-
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
       child: ExpansionTile(
@@ -20,63 +18,34 @@ class DiscountCard extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.all(8),
-            child: Row(
-              children: [
-                TextFormField(
-                  controller: couponController,
-                  textCapitalization: TextCapitalization.characters,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: "Digite seu cupom",
-                  ),
-                  initialValue: CartModel.of(context).couponDescont ?? "",
-                  onFieldSubmitted: (text) {
-                    FirebaseFirestore.instance
-                        .collection("coupons")
-                        .doc(text)
-                        .get()
-                        .then((docSnap) {
-                      if (docSnap.data() != null) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(
-                              "Cupom ${docSnap.id} de ${docSnap["percent"]}% aplicado com sucesso."),
-                          backgroundColor: Theme.of(context).primaryColor,
-                        ));
-                      } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Erro ao aplicar o cupom de desconto."),
-                          backgroundColor: Colors.red,
-                        ));
-                      }
-                    });
-                  },
-                ),
-                TextButton(
-                    onPressed: () {
-                      FirebaseFirestore.instance
-                          .collection("coupons")
-                          .doc(couponController.text)
-                          .get()
-                          .then((docSnap) {
-                        if (docSnap.data() != null) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(
-                                "Cupom ${docSnap.id} de ${docSnap["percent"]}% aplicado com sucesso."),
-                            backgroundColor: Theme.of(context).primaryColor,
-                          ));
-                        } else {
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content:
-                                Text("Erro ao aplicar o cupom de desconto."),
-                            backgroundColor: Colors.red,
-                          ));
-                        }
-                      });
-                    },
-                    child: const Text("Aplicar"))
-              ],
+            child: TextFormField(
+              textCapitalization: TextCapitalization.characters,
+              decoration: const InputDecoration(
+                border: OutlineInputBorder(),
+                hintText: "Digite seu cupom",
+              ),
+              initialValue: CartModel.of(context).couponDescont ?? "",
+              onFieldSubmitted: (text) {
+                FirebaseFirestore.instance
+                    .collection("coupons")
+                    .doc(text)
+                    .get()
+                    .then((docSnap) {
+                  if (docSnap.data() != null) {
+                    CartModel.of(context).setCoupon(text, docSnap["percent"]);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: Text(
+                          "Cupom ${docSnap.id} de ${docSnap["percent"]}% aplicado com sucesso."),
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ));
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                      content: Text("Erro ao aplicar o cupom de desconto."),
+                      backgroundColor: Colors.red,
+                    ));
+                  }
+                });
+              },
             ),
           )
         ],
