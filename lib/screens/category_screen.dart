@@ -4,9 +4,9 @@ import 'package:loja_virtual/datas/products_data.dart';
 import 'package:loja_virtual/screens/tiles/product_tile.dart';
 
 class CategoryScreen extends StatelessWidget {
-  const CategoryScreen({super.key, required this.snapshot});
+  const CategoryScreen({super.key, required this.cartegorySnapashot});
 
-  final DocumentSnapshot snapshot;
+  final DocumentSnapshot cartegorySnapashot;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +15,7 @@ class CategoryScreen extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              snapshot["title"],
+              cartegorySnapashot["title"],
               style: const TextStyle(color: Colors.white),
             ),
             centerTitle: true,
@@ -41,11 +41,11 @@ class CategoryScreen extends StatelessWidget {
           body: FutureBuilder<QuerySnapshot>(
               future: FirebaseFirestore.instance
                   .collection("products")
-                  .doc(snapshot.id)
+                  .doc(cartegorySnapashot.id)
                   .collection("items")
                   .get(),
-              builder: (context, snapshot) {
-                if (!snapshot.hasData) {
+              builder: (context, cartegorySnapashot) {
+                if (!cartegorySnapashot.hasData) {
                   return const Center(
                     child: CircularProgressIndicator(
                       color: Colors.black,
@@ -63,21 +63,21 @@ class CategoryScreen extends StatelessWidget {
                                   crossAxisSpacing: 4,
                                   mainAxisSpacing: 4,
                                   childAspectRatio: 0.64),
-                          itemCount: snapshot.data!.docs.length,
+                          itemCount: cartegorySnapashot.data!.docs.length,
                           itemBuilder: (context, index) {
                             ProductsData data = ProductsData.fromDocuments(
-                                snapshot.data!.docs[index]);
-                            data.category = this.snapshot.id;
+                                cartegorySnapashot.data!.docs[index]);
+                            data.category = this.cartegorySnapashot.id;
                             return ProductTile('grid', data);
                           },
                         ),
                         ListView.builder(
                           padding: const EdgeInsets.all(8),
-                          itemCount: snapshot.data!.docs.length,
+                          itemCount: cartegorySnapashot.data!.docs.length,
                           itemBuilder: (context, index) {
                             ProductsData data = ProductsData.fromDocuments(
-                                snapshot.data!.docs[index]);
-                            data.category = this.snapshot.id;
+                                cartegorySnapashot.data!.docs[index]);
+                            data.category = this.cartegorySnapashot.id;
                             return ProductTile('list', data);
                           },
                         ),
