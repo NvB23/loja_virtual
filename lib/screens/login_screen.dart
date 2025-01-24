@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:loja_virtual/model/user_model.dart';
 import 'package:loja_virtual/screens/signup_screen.dart';
+import 'package:loja_virtual/screens/tabs/home_tab.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -183,6 +184,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           onSuccess: onSuccess, onFail: onFail);
                     },
                     child: Container(
+                      width: 55,
+                      height: 55,
                       padding: const EdgeInsets.all(5),
                       margin: const EdgeInsets.only(top: 5),
                       decoration: BoxDecoration(
@@ -191,7 +194,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               width: 2, color: Theme.of(context).primaryColor)),
                       child: Image.asset(
                         "lib/assets/google_logo.png",
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         height: 55,
                       ),
                     ),

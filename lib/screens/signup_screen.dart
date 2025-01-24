@@ -229,6 +229,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             builder: (context) => const AddFields()));
                       },
                       child: Container(
+                        width: 55,
+                        height: 55,
                         padding: const EdgeInsets.all(5),
                         margin: const EdgeInsets.only(top: 5),
                         decoration: BoxDecoration(
@@ -238,7 +240,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 color: Theme.of(context).primaryColor)),
                         child: Image.asset(
                           "lib/assets/google_logo.png",
-                          fit: BoxFit.cover,
+                          fit: BoxFit.contain,
                           height: 55,
                         ),
                       ),

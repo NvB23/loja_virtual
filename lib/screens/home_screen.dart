@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:loja_virtual/screens/create_products.dart';
 import 'package:loja_virtual/screens/tabs/home_tab.dart';
 import 'package:loja_virtual/screens/tabs/orders_tab.dart';
 import 'package:loja_virtual/screens/tabs/places_tab.dart';
@@ -61,6 +62,20 @@ class HomeScreen extends StatelessWidget {
             backgroundColor: Theme.of(context).primaryColor,
           ),
           body: const OrdersTab(),
+          drawer: CustomDrawer(
+            pageController: pageController,
+          ),
+        ),
+        Scaffold(
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text(
+              "Criar Produtos",
+              style: TextStyle(color: Colors.white),
+            ),
+            backgroundColor: Theme.of(context).primaryColor,
+          ),
+          body: const CreateProducts(),
           drawer: CustomDrawer(
             pageController: pageController,
           ),

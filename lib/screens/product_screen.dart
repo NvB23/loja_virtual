@@ -8,6 +8,7 @@ import 'package:loja_virtual/model/cart_model.dart';
 import 'package:loja_virtual/model/user_model.dart';
 import 'package:loja_virtual/screens/cart_screen.dart';
 import 'package:loja_virtual/screens/login_screen.dart';
+import 'package:loja_virtual/screens/product_image.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen(this.product, {super.key});
@@ -51,9 +52,18 @@ class _ProductScreenState extends State<ProductScreen> {
                   currentIndicatorColor: primiryColor,
                 ))),
             items: product.images!.map((url) {
-              return Image.network(
-                url,
-                fit: BoxFit.cover,
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => ProductImage(
+                      images: product.images,
+                    ),
+                  ));
+                },
+                child: Image.network(
+                  url,
+                  fit: BoxFit.cover,
+                ),
               );
             }).toList(),
           ),

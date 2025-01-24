@@ -91,6 +91,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
                                                   const LoginScreen()));
                                     } else {
                                       model.signOut();
+                                      Navigator.of(context).pop();
+                                      setState(() {});
                                     }
                                   }),
                             ],
@@ -123,7 +125,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                 text: "Meus Pedidos",
                 pageController: widget.pageController,
                 page: 3,
-              )
+              ),
+              UserModel.of(context).firebaseUser?.email == "nmvcbs@gmail.com" &&
+                      UserModel.of(context).firebaseUser != null
+                  ? DrawerTile(
+                      icon: Icons.add_box_rounded,
+                      text: "Criar Produtos",
+                      pageController: widget.pageController,
+                      page: 4,
+                    )
+                  : Container(),
             ],
           )
         ],
